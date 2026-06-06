@@ -13,6 +13,12 @@ connectDB();
 
 const app = express();
 
+// Ensure DB is connected before processing requests (critical for serverless)
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 // CORS middleware configuration
 app.use(
   cors({
