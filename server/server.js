@@ -30,7 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Task Manager API is running smoothly' });
 });
 
