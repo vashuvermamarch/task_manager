@@ -1,0 +1,348 @@
+/* Imports are managed in index.html to guarantee cache hits and smooth fonts loading */
+
+:root {
+  --font-sans: 'Patrick Hand', cursive;
+  --font-display: 'Kalam', cursive;
+
+  /* Hand-drawn Sketchbook Light Mode Palette */
+  --bg-paper: #fdfbf7;
+  --pencil-black: #2d2d2d;
+  --erased-pencil: #e5e0d8;
+  
+  --color-accent-red: #ff4d4d;     /* Correction pen */
+  --color-accent-blue: #2d5da1;    /* Ballpoint pen */
+  --color-postit-yellow: #fff9c4;  /* Sticky notes */
+  
+  --radius-wobbly-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --radius-wobbly-2: 15px 225px 15px 255px / 255px 15px 225px 15px;
+  --radius-wobbly-btn: 20px 5px 20px 5px / 5px 20px 5px 20px;
+  --radius-wobbly-input: 8px 12px 6px 14px / 12px 8px 14px 6px;
+
+  --transition-sketchy: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-paper);
+  background-image: radial-gradient(var(--erased-pencil) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  color: var(--pencil-black);
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 1.25rem; /* Larger font size since Patrick Hand is compact */
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent-blue);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--color-accent-red);
+  text-decoration-style: solid;
+}
+
+/* Notebook paper scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-paper);
+  border-left: 2px solid var(--pencil-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--erased-pencil);
+  border: 2px solid var(--pencil-black);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-blue);
+}
+
+/* Sketchy Form Elements */
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1.15rem;
+  background-color: #ffffff;
+  border: 3px solid var(--pencil-black);
+  color: var(--pencil-black);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-wobbly-input);
+  outline: none;
+  transition: var(--transition-sketchy);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-accent-blue);
+  transform: rotate(-0.5deg) scale(1.01);
+  box-shadow: 2px 3px 0px var(--pencil-black);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Hand-Drawn Wobbly Paper Cards */
+.glass-card, .auth-card {
+  background-color: #ffffff;
+  border: 3px solid var(--pencil-black);
+  border-radius: var(--radius-wobbly-1);
+  box-shadow: 6px 6px 0px 0px var(--pencil-black);
+  transition: var(--transition-sketchy);
+}
+
+.glass-card:hover {
+  transform: translate(-2px, -2px) rotate(0.5deg);
+  box-shadow: 8px 8px 0px 0px var(--pencil-black);
+}
+
+/* Tape strip effect */
+.card-tape {
+  position: relative;
+}
+
+.card-tape::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 90px;
+  height: 25px;
+  background-color: rgba(220, 220, 200, 0.6);
+  border: 1px dashed rgba(45, 45, 45, 0.3);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  z-index: 5;
+}
+
+/* Thumbtack effect */
+.card-tack {
+  position: relative;
+}
+
+.card-tack::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-accent-red);
+  border: 2px solid var(--pencil-black);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0px rgba(45, 45, 45, 0.4);
+  z-index: 5;
+}
+
+/* Post-It Yellow Sticky Note */
+.sticky-note {
+  background-color: var(--color-postit-yellow) !important;
+  border-radius: var(--radius-wobbly-2) !important;
+  box-shadow: 4px 6px 0px 0px var(--pencil-black) !important;
+}
+
+.sticky-note:hover {
+  transform: translate(-1px, -2px) rotate(-1deg) !important;
+  box-shadow: 6px 8px 0px 0px var(--pencil-black) !important;
+}
+
+/* Wobbly Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.15rem;
+  border: 3px solid var(--pencil-black);
+  border-radius: var(--radius-wobbly-btn);
+  transition: var(--transition-sketchy);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: var(--pencil-black);
+  box-shadow: 4px 4px 0px 0px var(--pencil-black);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-red);
+  color: #ffffff;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--pencil-black);
+}
+
+.btn-primary:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px var(--pencil-black);
+}
+
+.btn-secondary {
+  background-color: var(--erased-pencil);
+  color: var(--pencil-black);
+  box-shadow: 3px 3px 0px 0px var(--pencil-black);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-accent-blue);
+  color: #ffffff;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px var(--pencil-black);
+}
+
+.btn-secondary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px 0px var(--pencil-black);
+}
+
+.btn-danger {
+  background-color: #ffffff;
+  color: var(--color-accent-red);
+  border-color: var(--pencil-black);
+  box-shadow: 3px 3px 0px 0px var(--pencil-black);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-accent-red);
+  color: #ffffff;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px var(--pencil-black);
+}
+
+/* Animations */
+@keyframes jiggle {
+  0% { transform: rotate(-1deg); }
+  50% { transform: rotate(1.5deg) scale(1.02); }
+  100% { transform: rotate(-1deg); }
+}
+
+.jiggle-hover:hover {
+  animation: jiggle 0.4s ease-in-out infinite alternate;
+}
+
+/* Layout Utilities */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem 2.5rem;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-header h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--pencil-black);
+}
+
+.auth-header p {
+  color: var(--pencil-black);
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--pencil-black);
+}
+
+.form-group input {
+  width: 100%;
+}
+
+.error-text {
+  font-size: 1rem;
+  color: var(--color-accent-red);
+  margin-top: 0.2rem;
+  font-weight: bold;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+}
+
+/* Handwritten toast layout */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 1.2rem;
+  background: #ffffff;
+  border: 3px solid var(--pencil-black);
+  border-radius: var(--radius-wobbly-input);
+  box-shadow: 4px 4px 0px 0px var(--pencil-black);
+  color: var(--pencil-black);
+  font-size: 1.15rem;
+  min-width: 260px;
+  max-width: 380px;
+  font-weight: bold;
+}
+
+.toast.success {
+  border-color: var(--color-accent-blue);
+  background-color: #eef5ff;
+}
+
+.toast.error {
+  border-color: var(--color-accent-red);
+  background-color: #fff1f1;
+}
+
+.toast.warning {
+  border-color: var(--pencil-black);
+  background-color: var(--color-postit-yellow);
+}
