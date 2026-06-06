@@ -76,6 +76,33 @@ const Dashboard = () => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const showToast = (message, type = 'success', action = null) => {
+    addToast(message, type, action);
+  };
+
+  const openAddModal = () => {
+    setEditingTask(null);
+    setIsTaskModalOpen(true);
+  };
+
+  const openEditModal = (task) => {
+    setEditingTask(task);
+    setIsTaskModalOpen(true);
+  };
+
+  const setPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSortByChange = (e) => {
+    setSortBy(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const toggleSortOrder = () => {
+    setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+  };
+
   // Fetch Categories
   const fetchCategories = useCallback(async () => {
     try {
@@ -181,7 +208,6 @@ const Dashboard = () => {
     try {
       const response = await api.patch(`/tasks/${id}/status`);
       showToast(`Task marked as ${response.data.status}`, 'success');
-      fetchStats();
     } catch (err) {
       setTasks(originalTasks);
       showToast('Could not update task status.', 'error');
@@ -213,7 +239,6 @@ const Dashboard = () => {
         }
       });
       fetchTasks();
-      fetchStats();
     } catch (err) {
       showToast('Could not delete task.', 'error');
     }
@@ -231,7 +256,6 @@ const Dashboard = () => {
       setIsTaskModalOpen(false);
       setEditingTask(null);
       fetchTasks();
-      fetchStats();
     } catch (err) {
       showToast('Error saving task.', 'error');
     }
@@ -428,7 +452,7 @@ const Dashboard = () => {
                   onClick={toggleSortOrder}
                   className="btn btn-secondary"
                   style={{ height: '36px', width: '36px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  title={order === 'asc' ? 'Sort Ascending' : 'Sort Descending'}
+                  title={sortOrder === 'asc' ? 'Sort Ascending' : 'Sort Descending'}
                 >
                   <ArrowUpDown size={14} />
                 </button>
@@ -446,7 +470,7 @@ const Dashboard = () => {
             onPageChange={setPage}
             onToggleStatus={handleToggleStatus}
             onEdit={openEditModal}
-            onDelete={handleDeleteTask}
+            onDelete={handleDelete}
             onAddTaskClick={openAddModal}
           />
         </section>
