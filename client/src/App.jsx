@@ -11,11 +11,8 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public Authentication Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* Protected Main Panel Routes */}
           <Route
             path="/"
             element={
@@ -24,8 +21,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* Wildcard Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
